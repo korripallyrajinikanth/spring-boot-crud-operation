@@ -25,14 +25,7 @@ public class BooksService {
     }
 
     public List<Books> saveOrUpdate(List<Books> books) {
-        List<Books> list_books = new ArrayList<>();
-        for (Books s:books
-             ) {
-           Books b= booksRepository.save(s);
-            list_books.add(b);
-        }
-return list_books;
-
+  return  booksRepository.saveAll(books);
     }
 
 
