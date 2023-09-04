@@ -1,4 +1,5 @@
 package com.crud.controller;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,43 +12,43 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.model.Books;
 import com.crud.service.BooksService;
-//mark class as Controller
+
 @RestController
 public class BooksController 
 {
-//autowire the BooksService class
+List<Books> books = new ArrayList<Books>();
+
 @Autowired
 BooksService booksService;
-//creating a get mapping that retrieves all the books detail from the database 
+
 @GetMapping("/books")
-private List<Books> getAllBooks() 
+public List<Books> getAllBooks() 
 {
 return booksService.getAllBooks();
 }
-//creating a get mapping that retrieves the detail of a specific book
+
 @GetMapping("/book/{bookid}")
-private Books getBooks(@PathVariable("bookid") int bookid) 
+public Books getBooks(@PathVariable("bookid") int bookid) 
 {
 return booksService.getBooksById(bookid);
 }
-//creating a delete mapping that deletes a specified book
+
 @DeleteMapping("/book/{bookid}")
-private void deleteBook(@PathVariable("bookid") int bookid) 
+public void deleteBook(@PathVariable("bookid") int bookid) 
 {
 booksService.delete(bookid);
 }
-//creating post mapping that post the book detail in the database
+
 @PostMapping("/book")
-private int saveBook(@RequestBody Books books) 
-{
-booksService.saveOrUpdate(books);
-return books.getBookid();
+public List<Books> saveAllStudents(@RequestBody List<Books> books) {
+
+    return booksService.saveOrUpdate(books);
 }
-//creating put mapping that updates the book detail 
+
 @PutMapping("/books")
-private Books update(@RequestBody Books books) 
+public List<Books> update(@RequestBody List<Books> books)
 {
-booksService.saveOrUpdate(books);
-return books;
+    List<Books> studentResponse1 = (List<Books>) booksService.saveOrUpdate(books);
+    return studentResponse1;
 }
 }
